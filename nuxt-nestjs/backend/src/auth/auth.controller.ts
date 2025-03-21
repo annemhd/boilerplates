@@ -8,9 +8,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Public } from '../decorator/public.decorator';
-import SignInDto from 'src/auth/signin.entity';
-import { User } from '../users/user.entity';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,12 +17,12 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: SignInDto) {
+  signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
   @Get('profile')
-  getProfile(@Request() req: { user: User }) {
+  getProfile(@Request() req) {
     return req.user;
   }
 }
