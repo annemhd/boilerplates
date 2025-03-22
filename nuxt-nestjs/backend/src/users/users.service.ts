@@ -10,7 +10,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  create(user: User) {
+  create(user: User) { 
     this.usersRepository.save(user);
   }
 
@@ -24,6 +24,10 @@ export class UsersService {
 
   findByEmail(email: string): Promise<User | null> {
     return this.usersRepository.findOneBy({ email });
+  }
+
+    findByUsername(username: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ username });
   }
 
   async remove(id: number): Promise<void> {
