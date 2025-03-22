@@ -10,15 +10,21 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  create(user: User) { 
-    this.usersRepository.save(user);
+  async create(user: User) { 
+    const { createHmac } = await import('node:crypto');
+    const secret = 'abcdefg';
+    const hash = createHmac('sha256', secret)
+               .update(user.password)
+      .digest('hex')
+    
+    this.usersRepository.save({email: user.email, username: user.username, password: hash});
   }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-  findOne(id: number): Promise<User | null> {
+  findOne(id: string): Promise<User | null> {
     return this.usersRepository.findOneBy({ id });
   }
 

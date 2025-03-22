@@ -34,7 +34,9 @@ export class UsersController {
         cause: errors,
       })
     }
-    else this.usersService.create(createUserDto)
+    else {
+      this.usersService.create(createUserDto)
+    }
   }
 
   // This action get all users

@@ -8,7 +8,14 @@ export class AuthService {
 
   async signIn(email: string, pass: string): Promise<{ access_token: string }> {
     const user = await this.usersService.findByEmail(email);
-    if (user?.password !== pass) {
+
+    const { createHmac } = await import('node:crypto');
+    const secret = 'abcdefg';
+    const hash = createHmac('sha256', secret)
+               .update(pass)
+      .digest('hex')
+
+    if (user?.password !== hash) {
       throw new UnauthorizedException();
     }
     const payload = { sub: user.id, email: user.email };
