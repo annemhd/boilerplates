@@ -3,7 +3,7 @@ import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common'
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
-import { Public } from 'src/auth/decorators/public.decorator';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -16,7 +16,8 @@ export class UsersController {
     this.usersService.create(createUserDto);
   }
 
-    // This action get all users
+  // This action get all users
+  @Public()
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
