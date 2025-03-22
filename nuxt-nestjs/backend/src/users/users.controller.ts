@@ -1,8 +1,8 @@
 
 import { Controller, Get, Post, Body, Put, Param, Delete, HttpStatus, HttpException } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { UsersService } from './users.service';
-import { User } from './interfaces/user.interface';
+import { User } from './user.interface';
 import { Public } from 'src/decorators/public.decorator';
 
 @Controller('users')
