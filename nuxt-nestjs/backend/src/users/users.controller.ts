@@ -1,5 +1,5 @@
 
-import { Controller, Get, Post, Body, Put, Param, Delete, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { UsersService } from './users.service';
 import { User } from './user.interface';
@@ -51,10 +51,23 @@ export class UsersController {
     return `This action returns a #${id} cat`;
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    console.log(updateUserDto)
-    return `This action updates a #${id} cat`;
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    try {
+      await this.usersService.update(
+        id,
+        updateUserDto,
+      );
+      return {
+        success: true,
+        message: 'User Updated Successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
 
   @Delete(':id')

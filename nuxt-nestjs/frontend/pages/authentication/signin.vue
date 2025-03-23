@@ -15,12 +15,13 @@ const token = useCookie('token')
 
 const confirm = async () => {
     try {
-        const response = await $fetch('http://localhost:3001/authentication/signin', {
+        const response: any = await $fetch('http://localhost:3001/authentication/signin', {
             method: 'POST',
             body: { email: email.value, password: password.value },
         })
 
         token.value = response.access_token
+
         loading.value = true
     } catch (error) {
         console.log(error)
