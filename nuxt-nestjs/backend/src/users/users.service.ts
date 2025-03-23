@@ -50,7 +50,7 @@ export class UsersService {
       }
     }
 
-    if (filteredUpdateData.password) {
+    if (filteredUpdateData.password && filteredUpdateData.password !== '' ) {
       const { createHmac } = await import('node:crypto');
       const secret = 'abcdefg';
       const hash = createHmac('sha256', secret)
