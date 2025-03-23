@@ -1,24 +1,34 @@
 <template>
     <div>
+        {{ loading }}
         <input v-model="email" placeholder="email" /><br />
         <input v-model="password" placeholder="password" />
-        <button @click="confirm">register</button>
+        <button @click="confirm()">login</button>
     </div>
 </template>
 <script setup lang="ts">
-import { useMainStore } from '~/stores/main'
-
+const loading = ref<boolean>(false)
 const email = ref<string>('')
 const password = ref<string>('')
-const store = useMainStore()
+const token = useCookie('token')
 
-async function confirm() {
-    const token = await $fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        body: { email: email.value, password: password.value },
-    })
+const confirm = async () => {
+    try {
+        const response = await $fetch('http://localhost:3001/authentication/signin', {
+            method: 'POST',
+            body: { email: email.value, password: password.value },
+        })
 
-    store.setLocalStorage('token', token)
-    console.log(store.getToken)
+        token.value = response.access_token
+        loading.value = true
+    } catch (error) {
+        console.log(error)
+    } finally {
+        if (token) {
+            setTimeout(() => {
+                window.location.assign('/dashboard')
+            }, 1000)
+        }
+    }
 }
 </script>
