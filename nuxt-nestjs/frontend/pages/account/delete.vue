@@ -1,1 +1,1 @@
-<template>del</template>
+<template>Page suppression compte</template>

@@ -1,7 +1,7 @@
 <template>
-    Welcome to your dashboard <br />
+    <template>Page compte</template>
 
-    <button @click="logout()">deco</button>
+    <button @click="logout()">Déconnexion</button>
 </template>
 <script setup lang="ts">
 const logout = () => {

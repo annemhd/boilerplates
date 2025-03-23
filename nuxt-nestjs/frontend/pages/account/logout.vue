@@ -1,4 +1,4 @@
-<template>logout</template>
+<template>Déconnexion en cours</template>
 <script setup lang="ts">
 const token = useCookie('token')
 onMounted(() => {
