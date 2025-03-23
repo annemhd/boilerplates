@@ -26,7 +26,7 @@ const confirm = async () => {
     } finally {
         if (token) {
             setTimeout(() => {
-                window.location.assign('/dashboard')
+                window.location.assign('/account')
             }, 1000)
         }
     }

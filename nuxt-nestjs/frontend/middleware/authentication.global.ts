@@ -1,12 +1,16 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   const token = useCookie('token')
 
-  if (token.value !== undefined) {
-  if (to.path === '/register') return navigateTo('/dashboard')
-  if (to.path === '/login') return navigateTo('/dashboard')
-  } 
+  const authenticatedRoutes = ['/account', '/account/logout', '/account/update', '/account/delete'];
+  const unauthenticatedRoutes = ['/register', '/login'];
 
-  if (to.path === '/dashboard') {
-    if (token.value === undefined) return navigateTo('/')
+  if (token.value) {
+    if (unauthenticatedRoutes.includes(to.path)) {
+      return navigateTo('/account');
+    }
+  } else {
+    if (authenticatedRoutes.includes(to.path)) {
+      return navigateTo('/');
+    }
   }
 })

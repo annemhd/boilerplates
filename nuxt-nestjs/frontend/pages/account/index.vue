@@ -5,6 +5,6 @@
 </template>
 <script setup lang="ts">
 const logout = () => {
-    navigateTo('/logout')
+    navigateTo('/account/logout')
 }
 </script>
