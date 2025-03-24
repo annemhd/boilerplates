@@ -1,5 +1,4 @@
 <template>
-    <h1>Modifier mes informations</h1>
     <UButton @click="router.back()">Retour</UButton>
 
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">

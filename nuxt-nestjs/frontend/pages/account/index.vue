@@ -1,5 +1,4 @@
 <template>
-    <h1>Mon compte</h1>
     <div class="flex flex-col">
         <UButton
             :to="{ name: 'account-settings-id', params: { id: decode.sub } }"

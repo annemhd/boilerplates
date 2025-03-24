@@ -1,5 +1,4 @@
 <template>
-    <h1>Paramètre du compte</h1>
     <div class="flex flex-col">
         <UButton
             :to="{ name: 'account-update-id', params: { id: id } }"

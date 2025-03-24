@@ -2,8 +2,9 @@
     <UBreadcrumb v-if="!isSpecialPage" :items="breadcrumbItems" />
 </template>
 <script setup lang="ts">
+import { renamePath } from '~/shared/utils/handleRoutesName'
+
 const route = useRoute()
-const props = defineProps(['pageTitle'])
 
 const isSpecialPage = computed(() => {
     if (typeof route.name === 'string') {
@@ -22,25 +23,30 @@ const breadcrumbItems = computed(() => {
         },
     ]
 
-    if (
-        route.name === 'authentication-signup' ||
-        route.name === 'authentication-signin' ||
-        route.name === 'account' ||
-        route.name === 'account-settings-id' ||
-        route.name === 'account-update-id'
-    ) {
-        return [...baseItems, { label: props.pageTitle }]
+    if (!route.path || route.path === '/') {
+        return baseItems
     }
 
-    if (route.name === 'some-component') {
-        return [
-            ...baseItems,
-            { label: 'Composants', to: '/components' },
-            { label: 'Breadcrumb', to: '/components/breadcrumb' },
-            { label: props.pageTitle },
-        ]
-    }
+    const pathSegments = route.path.split('/').filter((segment) => segment)
+    const breadcrumb = [...baseItems]
 
-    return baseItems // Default breadcrumb for other routes
+    let currentPath = '/'
+
+    pathSegments.forEach((segment) => {
+        if (
+            !/^\d+$/.test(segment) &&
+            !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(segment)
+        ) {
+            currentPath += segment + '/'
+            breadcrumb.push({
+                label: renamePath(segment),
+                to: currentPath,
+            })
+        } else {
+            currentPath += segment + '/'
+        }
+    })
+
+    return breadcrumb
 })
 </script>
