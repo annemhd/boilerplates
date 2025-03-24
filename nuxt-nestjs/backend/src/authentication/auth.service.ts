@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable,  } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -16,7 +16,13 @@ export class AuthService {
       .digest('hex')
 
     if (user?.password !== hash) {
-      throw new UnauthorizedException();
+      throw new HttpException({
+              status: HttpStatus.UNAUTHORIZED,
+              error: 'Unauthorized',
+               description: 'Identifiants incorrects'
+              }, HttpStatus.UNAUTHORIZED, {
+              cause: 'Identifiants incorrects',
+            })
     }
     const payload = { sub: user.id, email: user.email };
     return {

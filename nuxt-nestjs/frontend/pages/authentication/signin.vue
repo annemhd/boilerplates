@@ -1,32 +1,58 @@
 <template>
     <div v-if="loading">Connexion en cours</div>
     <div v-else>
-        <input v-model="email" placeholder="email" /><br />
-        <input v-model="password" placeholder="password" />
-        <button @click="confirm()">S'identifier</button><br />
-        <NuxtLink to="/">Retour</NuxtLink>
+        <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
+        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+            <UFormField label="Email" name="email">
+                <UInput v-model="state.email" />
+            </UFormField>
+            <UFormField label="Password" name="password">
+                <UInput v-model="state.password" type="password" />
+            </UFormField>
+
+            <UButton type="submit">S'identifier</UButton>
+        </UForm>
+
+        <NuxtLink to="/">
+            <UButton @click="router.back()">Retour</UButton>
+        </NuxtLink>
     </div>
 </template>
 <script setup lang="ts">
+import { object, string, type InferType } from 'yup'
+import type { FormSubmitEvent } from '@nuxt/ui'
+import { authentication } from '~/services/auth.service'
+
+type Schema = InferType<typeof schema>
+
 const loading = ref<boolean>(false)
-const email = ref<string>('')
-const password = ref<string>('')
 const token = useCookie('token')
+const router = useRouter()
+const errorMessage = ref(null)
 
-const confirm = async () => {
+const schema = object({
+    email: string().email('Email invalide').required('Requis'),
+    password: string().required('Requis'),
+})
+
+const state = reactive({
+    email: undefined,
+    password: undefined,
+})
+
+const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     try {
-        const response: any = await $fetch('http://localhost:3001/authentication/signin', {
-            method: 'POST',
-            body: { email: email.value, password: password.value },
-        })
-
+        console.log(event.data)
+        const response: any = await authentication(event.data)
         token.value = response.access_token
-
+        console.log(response)
         loading.value = true
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        if (error.response && error.response._data && error.response._data.description) {
+            errorMessage.value = error.response._data.description.toString()
+        }
     } finally {
-        if (token) {
+        if (token.value) {
             setTimeout(() => {
                 window.location.assign('/account')
             }, 1000)
