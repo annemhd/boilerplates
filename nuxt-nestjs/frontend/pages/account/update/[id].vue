@@ -1,18 +1,19 @@
 <template>
     Page màj compte
-    {{ user }}
+
     <div>
         <input v-model="email" placeholder="email" /><br />
         <input v-model="username" placeholder="username" /><br />
         <input v-model="password" placeholder="password" /><br />
         <button @click="validate()">S'identifier</button><br />
-        <NuxtLink to="/">Retour</NuxtLink>
+        <button @click="router.back()">Retour</button>
     </div>
 </template>
 <script setup lang="ts">
 import { getUser, updateUser } from '~/services/users.service'
 
 const route = useRoute()
+const router = useRouter()
 const id = route.params.id
 const user = ref()
 

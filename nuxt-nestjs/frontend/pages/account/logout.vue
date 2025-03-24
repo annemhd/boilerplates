@@ -3,6 +3,8 @@
 const token = useCookie('token')
 onMounted(() => {
     token.value = null
-    window.location.assign('/')
+    setTimeout(() => {
+        window.location.assign('/')
+    }, 1000)
 })
 </script>

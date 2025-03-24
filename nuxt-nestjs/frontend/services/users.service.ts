@@ -16,4 +16,12 @@ export const updateUser = async (id: any, payload: any) => {
     })
 }
 
+export const deleteUser = async (id: any) => {
+    const token: any = useCookie('token')
+    return await $fetch(`http://localhost:3001/users/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token.value}` },
+    })
+}
+
 export default {updateUser, getUser}

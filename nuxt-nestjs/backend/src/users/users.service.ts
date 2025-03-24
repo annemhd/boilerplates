@@ -28,14 +28,6 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id });
   }
 
-  findByEmail(email: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ email });
-  }
-
-  findByUsername(username: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ username });
-  }
-
   async update(id: string, updateUserDto: Partial<User>): Promise<User> {
     const existingUser = await this.usersRepository.findOneBy({ id });
 
@@ -64,7 +56,15 @@ export class UsersService {
     return await this.usersRepository.save(userData);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  findByEmail(email: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ email });
+  }
+
+  findByUsername(username: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ username });
   }
 }
