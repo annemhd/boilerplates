@@ -3,16 +3,16 @@ import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 export class CreateUserDto {
     // id: string;
 
-    @IsNotEmpty({ message: 'Saissisez votre nom d\'utilisateur'})
-    @MinLength(2, { message: 'Le mot de passe doit faire minimum 2 caractères' })
+    @IsNotEmpty({ message: 'saissisez votre nom d\'utilisateur'})
+    @MinLength(2, { message: 'le mot de passe doit faire minimum 2 caractères' })
     username: string;
 
-    @IsNotEmpty({ message: 'Saissisez votre email'})
-    @IsEmail({}, { message: 'L\'email est invalide'})
+    @IsNotEmpty({ message: 'saissisez votre email'})
+    @IsEmail({}, { message: 'l\'email est invalide'})
     email: string;
 
-    @IsNotEmpty({ message: 'Saissisez un mot de passe'})
-    @MinLength(8, { message: 'Le mot de passe doit faire minimum 8 caractères' })
+    @IsNotEmpty({ message: 'saissisez un mot de passe'})
+    @MinLength(8, { message: 'le mot de passe doit faire minimum 8 caractères' })
     password: string; 
 }
 

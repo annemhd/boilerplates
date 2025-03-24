@@ -20,16 +20,16 @@ export class UsersController {
     if (usernameNotAvailable || emailNotAvailable){
       
       if (emailNotAvailable) {
-        errors.push('Cette email est déjà utilisé')
+        errors.push('cette email est déjà utilisé')
       }
       if (usernameNotAvailable) {
-        errors.push('Ce nom d\'utilisateur est indisponible')
+        errors.push('ce nom d\'utilisateur est indisponible')
       }
 
       throw new HttpException({
         status: HttpStatus.CONFLICT,
         error: 'CONFLICT',
-         description: `${errors.join(", ")}`
+         description: errors
         }, HttpStatus.CONFLICT, {
         cause: errors,
       })

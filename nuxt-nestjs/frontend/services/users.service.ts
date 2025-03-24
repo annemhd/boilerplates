@@ -1,4 +1,11 @@
 
+export const addUser = async (payload: any) => {
+    await $fetch('http://localhost:3001/users', {
+        method: 'POST',
+        body: { username: payload.username, email: payload.email, password: payload.password },
+    })
+}
+
 export const getUser = async (id: any) => {
     const token: any = useCookie('token')
     return await $fetch(`http://localhost:3001/users/${id}`, {
