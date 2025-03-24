@@ -1,6 +1,7 @@
 <template>
     <div v-if="loading">Connexion en cours</div>
     <div v-else>
+        <UButton @click="router.back()">Retour</UButton>
         <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
             <UFormField label="Email" name="email">
@@ -12,10 +13,6 @@
 
             <UButton type="submit">S'identifier</UButton>
         </UForm>
-
-        <NuxtLink to="/">
-            <UButton @click="router.back()">Retour</UButton>
-        </NuxtLink>
     </div>
 </template>
 <script setup lang="ts">
