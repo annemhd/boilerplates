@@ -1,4 +1,4 @@
 <template>
     Confirmation
-    <NuxtLink to="/authentication/signin">S'identifier</NuxtLink>
+    <NuxtLink to="/authentication/signin">Se connecter</NuxtLink>
 </template>

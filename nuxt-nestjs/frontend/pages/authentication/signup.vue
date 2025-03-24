@@ -1,20 +1,27 @@
 <template>
-    <div>
-        <UButton @click="router.back()">Retour</UButton>
-        <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-            <UFormField label="Email" name="email">
-                <UInput v-model="state.email" />
-            </UFormField>
-            <UFormField label="Nom d'utilisateur" name="username">
-                <UInput v-model="state.username" />
-            </UFormField>
-            <UFormField label="Password" name="password">
-                <UInput v-model="state.password" type="password" />
-            </UFormField>
-
-            <UButton type="submit">S'incrire</UButton>
-        </UForm>
+    <div class="flex flex-col items-center justify-center h-full">
+        <div class="flex flex-col gap-4 w-full">
+            <h1 class="text-4xl">S'inscrire</h1>
+            <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
+            <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+                <UFormField label="Email" name="email" size="xl">
+                    <UInput v-model="state.email" class="w-full" />
+                </UFormField>
+                <UFormField label="Nom d'utilisateur" name="username" size="xl">
+                    <UInput v-model="state.username" class="w-full" />
+                </UFormField>
+                <UFormField label="Mot de passe" name="password" size="xl">
+                    <UInput v-model="state.password" type="password" class="w-full" />
+                </UFormField>
+                <UButton type="submit">S'inscrire</UButton>
+            </UForm>
+            <p>
+                Déjà un compte ?
+                <NuxtLink to="/authentication/signin" class="underline underline-offset-4"
+                    >Se connecter</NuxtLink
+                >
+            </p>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -24,13 +31,14 @@ import { addUser } from '~/services/users.service'
 
 type Schema = InferType<typeof schema>
 
-const router = useRouter()
 const errorMessage = ref(null)
 
 const schema = object({
-    email: string().email('Email invalide').required('Requis'),
+    email: string().email('L\iemail est invalide').required('Requis'),
     username: string().required('Requis'),
-    password: string().min(8, 'Au moins 8 characters').required('Requis'),
+    password: string()
+        .min(8, 'Le mot de passe doit contenir au moins 8 caractère')
+        .required('Requis'),
 })
 
 const state = reactive({

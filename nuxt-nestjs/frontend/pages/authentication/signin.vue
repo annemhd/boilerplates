@@ -1,18 +1,25 @@
 <template>
     <div v-if="loading">Connexion en cours</div>
-    <div v-else>
-        <UButton @click="router.back()">Retour</UButton>
-        <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-            <UFormField label="Email" name="email">
-                <UInput v-model="state.email" />
-            </UFormField>
-            <UFormField label="Password" name="password">
-                <UInput v-model="state.password" type="password" />
-            </UFormField>
-
-            <UButton type="submit">S'identifier</UButton>
-        </UForm>
+    <div v-else class="flex flex-col items-center justify-center h-full">
+        <div class="flex flex-col gap-4 w-full">
+            <h1 class="text-4xl">Se connecter</h1>
+            <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
+            <UForm class="space-y-4" :schema="schema" :state="state" @submit="onSubmit">
+                <UFormField label="Email" name="email" size="xl">
+                    <UInput v-model="state.email" class="w-full" />
+                </UFormField>
+                <UFormField label="Mot de passe" name="password" size="xl">
+                    <UInput v-model="state.password" type="password" class="w-full" />
+                </UFormField>
+                <UButton type="submit">Se connecter</UButton>
+            </UForm>
+            <p>
+                Pas encore de compte ?
+                <NuxtLink to="/authentication/signup" class="underline underline-offset-4"
+                    >Créer un compte</NuxtLink
+                >
+            </p>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -24,12 +31,11 @@ type Schema = InferType<typeof schema>
 
 const loading = ref<boolean>(false)
 const token = useCookie('token')
-const router = useRouter()
 const errorMessage = ref(null)
 
 const schema = object({
-    email: string().email('Email invalide').required('Requis'),
-    password: string().required('Requis'),
+    email: string().email("L'email est invalide"),
+    password: string(),
 })
 
 const state = reactive({
