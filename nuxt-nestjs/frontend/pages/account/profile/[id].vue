@@ -1,9 +1,14 @@
 <template>
     <div class="flex flex-col gap-2">
-        <h2 class="text-xl">Informations du profil</h2>
+        <h2 class="text-xl font-bold">Informations du profil</h2>
 
-        <UForm :schema="schema" :state="state" class="space-y-4 w-full" @submit="onSubmit">
-            <UFormField label="Nom d'utilisateur" name="username">
+        <UForm
+            :schema="schema"
+            :state="state"
+            class="flex flex-col items-end gap-4"
+            @submit="onSubmit"
+        >
+            <UFormField label="Nom d'utilisateur" name="username" class="w-full">
                 <UInput v-model="state.username" class="w-full" />
             </UFormField>
             <UButton type="submit" class="iinline-block">Valider les modifications</UButton>

@@ -1,53 +1,40 @@
 <template>
     <div class="flex flex-col gap-2">
-        <h2 class="text-xl">Informations principales</h2>
+        <h2 class="text-xl font-bold">Informations principales</h2>
 
-        <UForm :schema="schema" :state="state" class="space-y-4 w-full" @submit="onSubmit">
-            <UFormField label="Email" name="email">
+        <UForm
+            :schema="schema"
+            :state="state"
+            class="flex flex-col items-end gap-4"
+            @submit="onSubmit"
+        >
+            <UFormField label="Email" name="email" class="w-full">
                 <UInput v-model="state.email" class="w-full" />
             </UFormField>
-            <UButton type="submit" class="inline-block">Valider les modifications</UButton>
+            <UButton type="submit" class="w-fit">Valider les modifications</UButton>
         </UForm>
 
         <USeparator class="my-4" />
 
-        <div class="space-y-4">
-            <h2 class="text-xl">Mot de passe</h2>
-            <UButton
-                :to="{ name: 'account-settings-password-id', params: { id: id } }"
-                class="inline-block"
-                >Modifier mon mot de passe</UButton
-            >
-        </div>
+        <div class="flex justify-between items-end">
+            <div>
+                <h2 class="text-xl font-bold">Supprimer mon compte</h2>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            </div>
 
-        <USeparator class="my-4" />
-
-        <div class="space-y-4">
-            <h2 class="text-xl">Supprimer mon compte</h2>
             <UModal v-model:open="displayModal" title="Supprimer mon compte définitivement">
-                <UButton
-                    label="Supprimer mon compte"
-                    color="error"
-                    variant="soft"
-                    class="cursor-pointer"
-                />
+                <UButton label="Supprimer mon compte" color="error" class="h-fit" />
                 <template #body>
                     <p class="mb-6">
-                        Êtes-vous sûre de vouloir supprimer votre compte ? Cette action est
-                        définitive
+                        Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est
+                        irréversible et toutes vos données seront perdues
                     </p>
-                    <div class="flex gap-3">
-                        <UButton
-                            color="neutral"
-                            variant="outline"
-                            class="w-full cursor-pointer"
-                            @click="showModal"
-                            >Non</UButton
+
+                    <div class="flex gap-3 justify-end">
+                        <UButton color="neutral" variant="outline" @click="showModal"
+                            >Annuler</UButton
                         >
-                        <UButton
-                            color="error"
-                            class="w-full cursor-pointer"
-                            @click="deleteAccount()"
+                        <UButton color="error" @click="deleteAccount()"
                             >Supprimer mon compte</UButton
                         >
                     </div>

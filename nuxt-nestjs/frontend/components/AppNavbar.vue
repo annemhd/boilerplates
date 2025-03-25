@@ -10,9 +10,7 @@
                 :to="{ name: 'account-profile-id', params: { id: decode.sub } }"
                 >Mon compte</UButton
             >
-            <UButton color="error" variant="ghost" class="cursor-pointer" @click="logout()"
-                >Déconnexion</UButton
-            >
+            <UButton color="error" variant="ghost" @click="logout()">Déconnexion</UButton>
         </div>
         <div v-else class="flex gap-2">
             <UButton color="neutral" variant="ghost" to="/authentication/signin"

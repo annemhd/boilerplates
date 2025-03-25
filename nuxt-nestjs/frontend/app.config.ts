@@ -12,32 +12,10 @@ export default defineAppConfig({
         hint: 'text-(--ui-text-muted)',
         help: 'mt-2 text-(--ui-text-muted)'
       },
-      variants: {
-        size: {
-          xs: {
-            root: 'text-xs'
-          },
-          sm: {
-            root: 'text-xs'
-          },
-          md: {
-            root: 'text-sm'
-          },
-          lg: {
-            root: 'text-sm'
-          },
-          xl: {
-            root: 'text-base'
-          }
-        },
-        required: {
-          true: {
-            label: "after:content-['*'] after:ms-0.5 after:text-(--ui-error)"
-          }
-        }
-      },
-      defaultVariants: {
-        size: 'md'
+    },
+    button: {
+      slots: {
+        base: 'cursor-pointer'
       }
     }
   }
