@@ -9,14 +9,19 @@
 const route = useRoute()
 
 const layoutName = computed(() => {
+    if (!route.name) {
+        return 'default'
+    }
+
     switch (route.name) {
         case 'index':
             return 'home'
-        case 'authentication-signup':
-            return 'auth'
-        case 'authentication-signin':
-            return 'auth'
         default:
+            if (route.name.startsWith('authentication')) {
+                return 'auth'
+            } else if (route.name.startsWith('account')) {
+                return 'account'
+            }
             return 'default'
     }
 })
