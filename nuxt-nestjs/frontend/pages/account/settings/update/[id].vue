@@ -1,18 +1,23 @@
 <template>
-    <UButton @click="router.back()">Retour</UButton>
+    <div class="flex flex-col gap-6">
+        <h2>Informations principales</h2>
+        <UForm :schema="schema" :state="state" class="space-y-4 w-full" @submit="onSubmit">
+            <UFormField label="Email" name="email">
+                <UInput v-model="state.email" class="w-full" />
+            </UFormField>
+            <UFormField label="Nom d'utilisateur" name="username">
+                <UInput v-model="state.username" class="w-full" />
+            </UFormField>
+            <UButton type="submit" class="w-full">Valider les modifications</UButton>
+        </UForm>
 
-    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormField label="Email" name="email">
-            <UInput v-model="state.email" />
-        </UFormField>
-        <UFormField label="Nom d'utilisateur" name="username">
-            <UInput v-model="state.username" />
-        </UFormField>
-        <UButton type="submit">Modifier les informations</UButton>
-    </UForm>
-    <UButton :to="{ name: 'account-update-password-id', params: { id: id } }"
-        >Modifier mon mot de passe</UButton
-    >
+        <USeparator type="solid" />
+
+        <h2>Changer de mot de passe</h2>
+        <UButton :to="{ name: 'account-settings-update-password-id', params: { id: id } }"
+            >Modifier mon mot de passe</UButton
+        >
+    </div>
 </template>
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'

@@ -3,7 +3,13 @@
         <UButton
             :to="{ name: 'account-settings-id', params: { id: decode.sub } }"
             color="neutral"
-            variant="outline"
+            variant="ghost"
+            >Mon profile</UButton
+        >
+        <UButton
+            :to="{ name: 'account-settings-id', params: { id: decode.sub } }"
+            color="neutral"
+            variant="ghost"
             >Paramètres du compte</UButton
         >
     </div>

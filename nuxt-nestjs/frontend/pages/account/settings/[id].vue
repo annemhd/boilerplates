@@ -1,13 +1,13 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-2">
         <UButton
-            :to="{ name: 'account-update-id', params: { id: id } }"
+            :to="{ name: 'account-settings-update-id', params: { id: id } }"
             color="neutral"
-            variant="outline"
+            variant="ghost"
             >Modifier mes informations</UButton
         >
         <UModal v-model:open="displayModal">
-            <UButton label="Supprimer mon compte" color="neutral" variant="subtle" />
+            <UButton label="Supprimer mon compte" color="error" variant="soft" />
             <template #content>
                 <div class="h-48 m-4">
                     <p>

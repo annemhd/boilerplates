@@ -1,12 +1,10 @@
 <template>
-    <UButton @click="router.back()">Retour</UButton>
-    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UForm :schema="schema" :state="state" class="space-y-4 w-full" @submit="onSubmit">
         <UFormField label="Nouveau mot de passe" name="password">
-            <UInput v-model="state.password" type="password" />
+            <UInput v-model="state.password" type="password" class="w-full" />
         </UFormField>
-        <UButton type="submit">Modifier le mot de passe</UButton>
+        <UButton type="submit" class="w-full">Modifier le mot de passe</UButton>
     </UForm>
-    <UButton>Modifier mon mot de passe</UButton>
 </template>
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'
@@ -17,7 +15,6 @@ type Schema = InferType<typeof schema>
 
 const route = useRoute()
 const id = route.params.id
-const router = useRouter()
 const errorMessage = ref(null)
 const toast = useToast()
 

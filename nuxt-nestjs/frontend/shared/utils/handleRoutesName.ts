@@ -9,9 +9,11 @@ export function renameRoute(routeName: string) {
         case 'account':
             return 'Mon compte'
         case 'account-settings-id':
-            return 'Paramètre du compte'
-        case 'account-update-id':
+            return 'Paramètres du compte'
+        case 'account-settings-update-id':
             return 'Modifier mes informations'
+        case 'account-settings-update-password-id':
+            return 'Modifier mon mot de passe'
         default:
             return 'Sans titre'
     }
@@ -20,13 +22,15 @@ export function renameRoute(routeName: string) {
 export function renamePath(routeName: string) {
      switch (routeName) {
     case 'account':
-        return 'Compte';
+        return 'Mon compte';
     case 'update':
-        return 'Modifier';
+        return 'Modifier mes informations';
     case 'settings':
-        return 'Paramètres';
+        return 'Paramètres du compte';
+    case 'password':
+        return 'Modifier mon mot de passe';
     default:
-      return routeName; // Return the original segment if no match
+      return routeName;
   }
 }
 
