@@ -4,16 +4,16 @@
             <h1 class="text-4xl">S'inscrire</h1>
             <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
             <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-                <UFormField label="Email" name="email" size="xl">
+                <UFormField label="Email" name="email" size="xl" :ui="ui">
                     <UInput v-model="state.email" class="w-full" />
                 </UFormField>
-                <UFormField label="Nom d'utilisateur" name="username" size="xl">
+                <UFormField label="Nom d'utilisateur" name="username" size="xl" :ui="ui">
                     <UInput v-model="state.username" class="w-full" />
                 </UFormField>
-                <UFormField label="Mot de passe" name="password" size="xl">
+                <UFormField label="Mot de passe" name="password" size="xl" :ui="ui">
                     <UInput v-model="state.password" type="password" class="w-full" />
                 </UFormField>
-                <UButton type="submit">S'inscrire</UButton>
+                <UButton type="submit" size="xl">S'inscrire</UButton>
             </UForm>
             <p>
                 Déjà un compte ?
@@ -32,6 +32,11 @@ import { addUser } from '~/services/users.service'
 type Schema = InferType<typeof schema>
 
 const errorMessage = ref(null)
+
+const ui = {
+    root: 'flex flex-col items-start w-full',
+    container: 'mt-1 relative w-full',
+}
 
 const schema = object({
     email: string().email('L\iemail est invalide').required('Requis'),

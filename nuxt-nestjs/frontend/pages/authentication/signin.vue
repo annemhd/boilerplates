@@ -5,13 +5,13 @@
             <h1 class="text-4xl">Se connecter</h1>
             <UAlert v-if="errorMessage" color="error" title="Erreur" :description="errorMessage" />
             <UForm class="space-y-4" :schema="schema" :state="state" @submit="onSubmit">
-                <UFormField label="Email" name="email" size="xl">
+                <UFormField label="Email" name="email" size="xl" :ui="ui">
                     <UInput v-model="state.email" class="w-full" />
                 </UFormField>
-                <UFormField label="Mot de passe" name="password" size="xl">
+                <UFormField label="Mot de passe" name="password" size="xl" :ui="ui">
                     <UInput v-model="state.password" type="password" class="w-full" />
                 </UFormField>
-                <UButton type="submit">Se connecter</UButton>
+                <UButton type="submit" size="xl">Se connecter</UButton>
             </UForm>
             <p>
                 Pas encore de compte ?
@@ -32,6 +32,11 @@ type Schema = InferType<typeof schema>
 const loading = ref<boolean>(false)
 const token = useCookie('token')
 const errorMessage = ref(null)
+
+const ui = {
+    root: 'flex flex-col items-start w-full',
+    container: 'mt-1 relative w-full',
+}
 
 const schema = object({
     email: string().email("L'email est invalide"),
@@ -57,8 +62,8 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     } finally {
         if (token.value) {
             setTimeout(() => {
-                window.location.assign('/account')
-            }, 1000)
+                window.location.assign('/')
+            }, 1200)
         }
     }
 }

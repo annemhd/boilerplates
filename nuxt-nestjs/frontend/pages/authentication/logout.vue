@@ -5,6 +5,6 @@ onMounted(() => {
     token.value = null
     setTimeout(() => {
         window.location.assign('/')
-    }, 1000)
+    }, 1200)
 })
 </script>
