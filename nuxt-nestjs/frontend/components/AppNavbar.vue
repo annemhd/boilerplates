@@ -1,13 +1,21 @@
 <template>
-    <nav class="flex items-center p-4">
-        <UNavigationMenu :arrow="false" :items="navigationItems" content-orientation="vertical" />
-        <div class="flex w-full"></div>
+    <nav class="flex p-4">
         <UNavigationMenu
-            :arrow="false"
+            :arrow="true"
+            :items="navigationItems"
+            content-orientation="vertical"
+            class="flex-1"
+        />
+        <div class="grow-2"></div>
+        <UNavigationMenu
+            v-if="token"
+            trailing-icon="i-lucide-chevron-down"
             :items="navigationItemsLogged"
             content-orientation="vertical"
+            :ui="{ viewportWrapper: 'block', indicator: 'invisible bg-red-300' }"
+            class="flex-none"
         />
-        <div v-if="!token" class="flex gap-2">
+        <div v-else class="flex gap-2">
             <UButton to="/authentication/signin" variant="soft" class="h-fit w-28"
                 >Se connecter</UButton
             >
@@ -21,15 +29,6 @@ import decodingJWT from '~/shared/utils/decodingJWT'
 
 const token = useCookie('token')
 const decode = decodingJWT(token.value)
-const route = useRoute()
-
-const accountRoutes = {
-    index: `/account/profile/${decode?.sub}`,
-    'account-profile-id': `/account/profile/${decode?.sub}`,
-    'account-settings-id': `/account/settings/${decode?.sub}`,
-    'account-security-id': `/account/security/${decode?.sub}`,
-    'account-security-password-id': `/account/security/password/${decode?.sub}`,
-}
 
 const navigationItems = computed(() => {
     return [{ label: 'Accueil', icon: 'i-lucide-house', to: '/' }]
@@ -40,13 +39,18 @@ const navigationItemsLogged = computed(() => {
 
     if (token.value && decode) {
         items.push({
-            label: 'Mon compte',
-            icon: 'i-lucide-user',
-            to: accountRoutes[route.name as keyof typeof accountRoutes],
+            label: '',
+            icon: 'i-lucide-user-round',
             children: [
                 {
                     label: 'Mon profil',
-                    icon: 'i-lucide-user',
+                    icon: 'i-lucide-user-round',
+                    to: `/profile`,
+                    slot: 'logout',
+                },
+                {
+                    label: 'Mon compte',
+                    icon: 'i-lucide-settings',
                     to: `/account/profile/${decode?.sub}`,
                     slot: 'logout',
                 },

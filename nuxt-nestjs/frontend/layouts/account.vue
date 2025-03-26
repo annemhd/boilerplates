@@ -29,7 +29,7 @@ const items = ref([
     [
         {
             label: 'Profil',
-            icon: 'i-lucide-user',
+            icon: 'i-lucide-user-round',
             to: `/account/profile/${decode.sub}`,
         },
         {
