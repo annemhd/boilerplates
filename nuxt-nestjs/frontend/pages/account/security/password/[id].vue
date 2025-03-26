@@ -3,7 +3,7 @@
         <UFormField label="Nouveau mot de passe" name="password">
             <UInput v-model="state.password" type="password" class="w-full" />
         </UFormField>
-        <UButton type="submit" class="w-full">Modifier le mot de passe</UButton>
+        <UButton type="submit" class="inline-block">Modifier le mot de passe</UButton>
     </UForm>
 </template>
 <script setup lang="ts">
