@@ -5,10 +5,9 @@
         <UNavigationMenu
             :arrow="false"
             :items="navigationItemsLogged"
-            class="p-4"
             content-orientation="vertical"
         />
-        <div class="flex gap-2">
+        <div v-if="!token" class="flex gap-2">
             <UButton to="/authentication/signin" variant="soft" class="h-fit w-28"
                 >Se connecter</UButton
             >
