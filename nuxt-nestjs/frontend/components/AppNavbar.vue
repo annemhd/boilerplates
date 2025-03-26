@@ -31,7 +31,10 @@ const token = useCookie('token')
 const decode = decodingJWT(token.value)
 
 const navigationItems = computed(() => {
-    return [{ label: 'Accueil', icon: 'i-lucide-house', to: '/' }]
+    return [
+        { label: 'Accueil', icon: 'i-lucide-house', to: '/' },
+        { label: 'Articles', icon: 'i-lucide-database', to: '/posts' },
+    ]
 })
 
 const navigationItemsLogged = computed(() => {
